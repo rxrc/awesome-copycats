@@ -217,7 +217,7 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "Print", function() os.execute(screenshot) end),
 
     -- Hotkeys
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "q",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     -- Tag browsing
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
