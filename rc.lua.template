@@ -67,16 +67,6 @@ local browser3     = "firefox-developer"
 local browser4     = "chromium"
 local screenshot   = "maim ~/drive/screenshots/$(hostname | tr '[:upper:]' '[:lower:]')/$(date +%F-%T%z).png"
 
-if hostname == "Gungnir" then
-  browser2 = "google-chrome-stable --force-device-scale-factor=2"
-  browser4 = "chromium --force-device-scale-factor=1.25"
-end
-
-if hostname == "Frigg" then
-  browser2 = "google-chrome-stable --force-device-scale-factor=1.25"
-  browser4 = "chromium --force-device-scale-factor=1.25"
-end
-
 awful.util.terminal = terminal
 awful.util.tagnames = { "alpha", "beta", "gamma", "delta", "sigma", "tau" }
 awful.layout.layouts = {
