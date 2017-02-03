@@ -1,0 +1,24 @@
+{
+  "name": "awesome-copycats",
+  "version": "3.0.0",
+  "homepage": "https://github.com/copycat-killer/awesome-copycats",
+  "authors": [
+    "Luke Bonham <dada@archlinux.info>",
+    "Evan Sosenko <razorx@evansosenko.com>"
+  ],
+  "description": "A set of themes with the aim of making Awesome appearance awesome too!",
+  "main": "switch-theme.sh",
+  "keywords": [
+    "awesome"
+  ],
+  "license": "BY-NC-SA",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "lain"
+  ],
+  "dependencies": {
+    "apw": "mokasin/apw"
+  }
+}
