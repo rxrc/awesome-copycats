@@ -589,9 +589,19 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog", "normal" } },
       properties = { titlebars_enabled = true } },
 
-    -- Set Firefox to always map on the first tag on screen 1.
-    { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = screen[1].tags[1] } },
+    { rule = { role = "GtkFileChooserDialog" },
+        properties = { floating = true, ontop = true },
+        callback = function (c)
+            awful.placement.centered(c, nil)
+            awful.client.movetotag(tags[mouse.screen][awful.tag.getidx()], c)
+        end
+    },
+
+     { rule = { instance = "plugin-container" },
+          properties = { floating = true } },
+
+    { rule = { instance = "exe" },
+          properties = { floating = true } },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
