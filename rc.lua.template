@@ -17,6 +17,7 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
+local widgets       = require("vicious.widgets")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
@@ -50,12 +51,31 @@ awful.util.spawn_with_shell(
 
 -- {{{ Variable definitions
 local chosen_theme = "multicolor"
+local hostname     = (widgets.os()[4])
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "urxvtc" or "xterm"
-local editor       = os.getenv("EDITOR") or "nano" or "vi"
-local gui_editor   = "gvim"
+local terminal     = "termite" or "terminator" or "xterm"
+local tmux         = "termite -e tmux attach -t "
+local editor       = os.getenv("EDITOR") or "nvim" or "vim" or "nano" or "vi"
+local gui_editor   = "nvim-qt" or "gvim"
+local gui_files    = "sunflower"
+local player       = "vlc"
+local viewer       = "zathura"
 local browser      = "firefox"
+local browser2     = "google-chrome-stable"
+local browser3     = "firefox-developer"
+local browser4     = "chromium"
+local screenshot   = "maim ~/drive/screenshots/$(hostname | tr '[:upper:]' '[:lower:]')/$(date +%F-%T%z).png"
+
+if hostname == "Gungnir" then
+  browser2 = "google-chrome-stable --force-device-scale-factor=2"
+  browser4 = "chromium --force-device-scale-factor=1.25"
+end
+
+if hostname == "Frigg" then
+  browser2 = "google-chrome-stable --force-device-scale-factor=1.25"
+  browser4 = "chromium --force-device-scale-factor=1.25"
+end
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "1", "2", "3", "4", "5" }
