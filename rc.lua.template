@@ -195,12 +195,17 @@ awful.util.mymainmenu = freedesktop.menu.build({
 screen.connect_signal("property::geometry", function(s)
     -- Wallpaper
     if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
+      local wallpaper = beautiful.wallpaper
+
+      if hostname == "Frigg" then
+        for s = 1, screen.count() do
+            gears.wallpaper.maximized(wallpaper .. "-" .. s, s, false)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+      else
+        for s = 1, screen.count() do
+            gears.wallpaper.maximized(wallpaper, s, false)
+        end
+      end
     end
 end)
 -- Create a wibox for each screen and add it
