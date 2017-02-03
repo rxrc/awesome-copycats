@@ -8,6 +8,7 @@
 
 local gears = require("gears")
 local lain  = require("lain")
+local apw   = require("apw/widget")
 local awful = require("awful")
 local wibox = require("wibox")
 local os    = { getenv = os.getenv }
@@ -229,21 +230,6 @@ local bat = lain.widgets.bat({
 
 -- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
-theme.volume = lain.widgets.alsa({
-    settings = function()
-        if volume_now.status == "off" then
-            volicon:set_image(theme.widget_vol_mute)
-        elseif tonumber(volume_now.level) == 0 then
-            volicon:set_image(theme.widget_vol_no)
-        elseif tonumber(volume_now.level) <= 50 then
-            volicon:set_image(theme.widget_vol_low)
-        else
-            volicon:set_image(theme.widget_vol)
-        end
-
-        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
-    end
-})
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
@@ -260,6 +246,11 @@ local net = lain.widgets.net({
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
+
+-- APW
+local apwtimer = timer({ timeout = 0.5 })
+apwtimer:connect_signal("timeout", apw.Update)
+apwtimer:start()
 
 function theme.at_screen_connect(s)
     -- Quake application
@@ -313,7 +304,7 @@ function theme.at_screen_connect(s)
             wibox.container.background(theme.mpd.widget, theme.bg_focus),
             arrl_dl,
             volicon,
-            theme.volume.widget,
+            apw,
             arrl_ld,
             wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(mail.widget, theme.bg_focus),

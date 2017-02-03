@@ -17,6 +17,7 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
+local apw           = require("apw/widget")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
@@ -465,6 +466,13 @@ globalkeys = awful.util.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"})
     --]]
+)
+
+-- Media keys.
+globalkeys = awful.util.table.join(globalkeys,
+  awful.key({ }, "XF86AudioRaiseVolume",  apw.Up),
+  awful.key({ }, "XF86AudioLowerVolume",  apw.Down),
+  awful.key({ }, "XF86AudioMute",         apw.ToggleMute)
 )
 
 clientkeys = {}
