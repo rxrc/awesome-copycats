@@ -18,6 +18,7 @@ local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
 local apw           = require("apw/widget")
+local drop          = require("scratchdrop")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
@@ -345,8 +346,13 @@ globalkeys = awful.util.table.join(
               end,
               {description = "restore minimized", group = "client"}),
 
-    -- Dropdown application
-    awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end),
+    -- Dropdown apps
+    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://slack.com/signin'",
+      "top", "center", 1, 1, true) end),
+    awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://inbox.google.com'",
+      "top", "center", 1, 1, true) end),
+    awful.key({ modkey,                  }, "s",      function () drop(browser2 .. " --app='https://play.google.com/music/listen'",
+      "top", "center", 1, 1, true) end),
 
     -- Widgets popups
     awful.key({ altkey, }, "c", function () lain.widgets.calendar.show(7) end),

@@ -253,9 +253,6 @@ apwtimer:connect_signal("timeout", apw.Update)
 apwtimer:start()
 
 function theme.at_screen_connect(s)
-    -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal })
-
     -- If wallpaper is a function, call it with the screen
     if type(wallpaper) == "function" then
         theme.wallpaper = theme.wallpaper(s)
