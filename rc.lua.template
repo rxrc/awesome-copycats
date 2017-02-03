@@ -17,7 +17,6 @@ local wibox         = require("wibox")
 local beautiful     = require("beautiful")
 local naughty       = require("naughty")
 local lain          = require("lain")
-local widgets       = require("vicious.widgets")
 --local menubar       = require("menubar")
 local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
@@ -51,7 +50,7 @@ awful.util.spawn_with_shell(
 
 -- {{{ Variable definitions
 local chosen_theme = "powerarrow-darker"
-local hostname     = (widgets.os()[4])
+local hostname     = io.lines("/proc/sys/kernel/hostname")()
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "termite" or "terminator" or "xterm"
