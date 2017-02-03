@@ -94,7 +94,7 @@ local separators = lain.util.separators
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
 local clock = lain.widgets.abase({
     timeout  = 60,
-    cmd      = " date +'%a %d %b %R'",
+    cmd      = "date +'%a %d %b %I:%M %p'",
     settings = function()
         widget:set_markup(" " .. markup.font(theme.font, output))
     end
