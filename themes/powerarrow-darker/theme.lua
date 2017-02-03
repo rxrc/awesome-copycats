@@ -19,10 +19,10 @@ theme.dir                                       = os.getenv("HOME") .. "/.config
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "xos4 Terminus 9"
 if hostname == "Gungnir" then
-  theme.font                                    = "xos4 Terminus 14"
+  theme.font                                    = "xos4 Terminus 11"
 end
 if hostname == "Frigg" then
-  theme.font                                    = "xos4 Terminus 15"
+  theme.font                                    = "xos4 Terminus 12"
 end
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
@@ -97,6 +97,14 @@ theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/
 
 local markup = lain.util.markup
 local separators = lain.util.separators
+
+local wibox_height = 18
+if hostname == "Gungnir" then
+  wibox_height = 20
+end
+if hostname == "Frigg" then
+  wibox_height = 20
+end
 
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
@@ -283,7 +291,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 18, bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = wibox_height, bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
