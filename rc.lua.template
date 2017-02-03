@@ -43,18 +43,9 @@ do
 end
 -- }}}
 
--- {{{ Autostart windowless processes
-local function run_once(cmd)
-  findme = cmd
-  firstspace = cmd:find(" ")
-  if firstspace then
-     findme = cmd:sub(0, firstspace-1)
-  end
-  awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
-end
-
-run_once("urxvtd")
-run_once("unclutter -root")
+-- {{{ Start systemd target
+awful.util.spawn_with_shell(
+  "sleep 1 && systemctl --user restart window-manager.target")
 -- }}}
 
 -- {{{ Variable definitions
