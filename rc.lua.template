@@ -590,7 +590,7 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = true } },
+      properties = { titlebars_enabled = false } },
 
     { rule = { role = "GtkFileChooserDialog" },
         properties = { floating = true, ontop = true },
