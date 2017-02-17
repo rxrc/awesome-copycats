@@ -8,7 +8,7 @@
 
 -- {{{ Required libraries
 local awesome, client, screen, tag = awesome, client, screen, tag
-local pairs, string, os, table, tostring, tonumber, type = pairs, string, os, table, tostring, tonumber, type
+local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
 local gears         = require("gears")
 local awful         = require("awful")
@@ -355,7 +355,7 @@ globalkeys = awful.util.table.join(
       "top", "center", 1, 1, true) end),
 
     -- Widgets popups
-    awful.key({ altkey, }, "c", function () lain.widgets.calendar.show(7) end),
+    awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end),
     awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end),
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
 
@@ -470,14 +470,6 @@ globalkeys = awful.util.table.join(globalkeys,
   awful.key({ }, "XF86AudioLowerVolume",  apw.Down),
   awful.key({ }, "XF86AudioMute",         apw.ToggleMute)
 )
-
-clientkeys = {}
-function clientkey(mod, key, func, desc)
-   local key = awful.key(mod, key, func, desc)
-   for k,v in pairs(key) do
-      tinsert(clientkeys, v)
-   end
-end
 
 clientkeys = awful.util.table.join(
     awful.key({ altkey, "Shift"   }, "m",      lain.util.magnify_client                         ),

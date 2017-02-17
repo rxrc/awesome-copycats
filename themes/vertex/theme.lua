@@ -10,7 +10,6 @@ local gears        = require("gears")
 local lain         = require("lain")
 local awful        = require("awful")
 local wibox        = require("wibox")
-local theme_assets = require("beautiful.theme_assets")
 local math, string, tonumber, type, os = math, string, tonumber, type, os
 
 local theme                                     = {}
@@ -28,8 +27,11 @@ theme.bg_urgent                                 = "#006B8E"
 theme.border_width                              = 4
 theme.border_normal                             = "#252525"
 theme.border_focus                              = "#7CA2EE"
-theme.menu_height                               = 36
+theme.tooltip_border_color                      = theme.fg_focus
+theme.tooltip_border_width                      = theme.border_width
+theme.menu_height                               = 24
 theme.menu_width                                = 140
+theme.awesome_icon                              = theme.icon_dir .. "/awesome.png"
 theme.taglist_squares_sel                       = theme.icon_dir .. "/square_sel.png"
 theme.taglist_squares_unsel                     = theme.icon_dir .. "/square_unsel.png"
 theme.panelbg                                   = theme.icon_dir .. "/panel.png"
@@ -103,16 +105,13 @@ theme.titlebar_maximized_button_focus_active    = theme.default_dir.."/titlebar/
 -- http://fontawesome.io/cheatsheet
 awful.util.tagnames = { " ", " ", " ", " ", " ", " ", " ", " ", " " }
 
--- Generate Awesome icon
-theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.fg_normal, theme.bg_normal)
-
 local markup = lain.util.markup
 
 -- Clock
 --os.setlocale(os.getenv("LANG")) -- to localize the clock
 local mytextclock = wibox.widget.textclock(markup("#FFFFFF", "%a %d %b, %H:%M"))
 mytextclock.font = theme.font
-lain.widgets.calendar({
+lain.widget.calendar({
     attach_to = { mytextclock },
     notification_preset = {
         fg = "#FFFFFF",
@@ -124,11 +123,18 @@ lain.widgets.calendar({
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.bat000)
-local battooltip = awful.tooltip({ objects = { baticon } })
---battooltip:set_shape(gears.shape.rounded_rect)
+local battooltip = awful.tooltip({
+    objects = { baticon },
+    margin_leftright = 15,
+    margin_topbottom = 12
+})
 battooltip.wibox.fg = theme.fg_normal
-battooltip.textbox.font = "Roboto 18"
-local bat = lain.widgets.bat({
+battooltip.textbox.font = theme.font
+battooltip.timeout = 0
+battooltip:set_shape(function(cr, width, height)
+    gears.shape.infobubble(cr, width, height, corner_radius, arrow_size, width - 35)
+end)
+local bat = lain.widget.bat({
     settings = function()
         local index, perc = "bat", tonumber(bat_now.perc) or 0
 
@@ -151,12 +157,12 @@ local bat = lain.widgets.bat({
         end
 
         baticon:set_image(theme[index])
-        battooltip:set_markup(string.format("%s%%, %s", bat_now.perc, bat_now.time))
+        battooltip:set_markup(string.format("\n%s%%, %s", bat_now.perc, bat_now.time))
     end
 })
 
 -- MPD
-theme.mpd = lain.widgets.mpd({
+theme.mpd = lain.widget.mpd({
     music_dir = "/mnt/storage/Downloads/Music",
     settings = function()
         if mpd_now.state == "play" then
@@ -176,7 +182,7 @@ theme.mpd = lain.widgets.mpd({
 
 -- ALSA volume
 local volicon = wibox.widget.imagebox()
-theme.volume = lain.widgets.alsabar({
+theme.volume = lain.widget.alsabar({
     togglechannel = "IEC958,3",
     notification_preset = { font = "Monospace 12", fg = theme.fg_normal },
     settings = function()
@@ -223,13 +229,26 @@ volicon:buttons(awful.util.table.join (
 
 -- Wifi carrier and signal strength
 local wificon = wibox.widget.imagebox()
-local mywifisig = lain.widgets.abase({
-    cmd = "awk 'NR==3 {printf(\"%d-%.0f\",$2, $3*10/7)}' /proc/net/wireless",
+local wifitooltip = awful.tooltip({
+    objects = { wificon },
+    margin_leftright = 15,
+    margin_topbottom = 15
+})
+wifitooltip.wibox.fg = theme.fg_normal
+wifitooltip.textbox.font = theme.font
+wifitooltip.timeout = 0
+wifitooltip:set_shape(function(cr, width, height)
+    gears.shape.infobubble(cr, width, height, corner_radius, arrow_size, width - 120)
+end)
+local mywifisig = lain.widget.watch({
+    cmd = { awful.util.shell, "-c", "awk 'NR==3 {printf(\"%d-%.0f\\n\",$2, $3*10/7)}' /proc/net/wireless; iw dev wlan0 link" },
     settings = function()
-        local carrier, perc = output:match("(%d)-(.*)")
+        local carrier, perc = output:match("(%d)-(%d+)")
+        local tiptext = output:gsub("(%d)-(%d+)", ""):gsub("%s+$", "")
 
         if carrier == "1" then
             wificon:set_image(theme.wifidisc)
+            wifitooltip:set_markup("No carrier")
         else
             perc = tonumber(perc)
             if perc <= 5 then
@@ -243,13 +262,14 @@ local mywifisig = lain.widgets.abase({
             else
                 wificon:set_image(theme.wififull)
             end
+            wifitooltip:set_markup(tiptext)
         end
     end
 })
 wificon:connect_signal("button::press", function() awful.spawn(string.format("%s -e wavemon", awful.util.terminal)) end)
 
 -- Weather
-theme.weather = lain.widgets.weather({
+theme.weather = lain.widget.weather({
     city_id = 2643743, -- placeholder (London)
     notification_preset = { font = "Monospace 10" },
     settings = function()
@@ -296,9 +316,13 @@ local barcolor2 = gears.color({
     stops = { {0, "#323232"}, {1, theme.bg_normal} }
 })
 
+local dockshape = function(cr, width, height)
+    gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, 6)
+end
+
 function theme.at_screen_connect(s)
     -- Quake application
-    s.quake = lain.util.quake({ app = awful.util.terminal })
+    s.quake = lain.util.quake({ app = awful.util.terminal, border = theme.border_width })
 
     -- If wallpaper is a function, call it with the screen
     if type(wallpaper) == "function" then
@@ -370,12 +394,13 @@ function theme.at_screen_connect(s)
     }
 
     -- Create the vertical wibox
-    local dockheight = (40 *  s.workarea.height)/100
-    local dockshape = function(cr, width, height)
-        gears.shape.partially_rounded_rect(cr, width, height, false, true, true, false, 6)
-    end
+    s.dockheight = (40 *  s.workarea.height)/100
 
-    s.myleftwibox = wibox({ screen = s, x=0, y=s.workarea.height/2 - dockheight/2, width = 6, height = dockheight, fg = theme.fg_normal, bg = barcolor2, ontop = true, visible = true, type = "dock" })
+    s.myleftwibox = wibox({ screen = s, x=0, y=s.workarea.height/2 - s.dockheight/2, width = 6, height = s.dockheight, fg = theme.fg_normal, bg = barcolor2, ontop = true, visible = true, type = "dock" })
+
+    if s.index > 1 and s.myleftwibox.y == 0 then
+        s.myleftwibox.y = screen[1].myleftwibox.y
+    end
 
     -- Add widgets to the vertical wibox
     s.myleftwibox:setup {
@@ -393,12 +418,14 @@ function theme.at_screen_connect(s)
     -- Add toggling functionalities
     s.docktimer = gears.timer{ timeout = 2 }
     s.docktimer:connect_signal("timeout", function()
+        local s = awful.screen.focused()
         s.myleftwibox.width = 6
         s.layoutb.visible = false
         mylauncher.visible = false
         s.docktimer:stop()
     end)
     tag.connect_signal("property::selected", function(t)
+        local s = t.screen or awful.screen.focused()
         s.myleftwibox.width = 46
         s.layoutb.visible = true
         mylauncher.visible = true
@@ -409,12 +436,14 @@ function theme.at_screen_connect(s)
     end)
 
     s.myleftwibox:connect_signal("mouse::leave", function()
+        local s = awful.screen.focused()
         s.myleftwibox.width = 6
         s.layoutb.visible = false
         mylauncher.visible = false
     end)
 
     s.myleftwibox:connect_signal("mouse::enter", function()
+        local s = awful.screen.focused()
         s.myleftwibox.width = 46
         s.layoutb.visible = true
         mylauncher.visible = true
