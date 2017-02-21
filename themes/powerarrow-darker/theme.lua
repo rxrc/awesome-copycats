@@ -23,7 +23,7 @@ if hostname == "Gungnir" then
   theme.font                                    = "xos4 Terminus 11"
 end
 if hostname == "Frigg" then
-  theme.font                                    = "xos4 Terminus 12"
+  theme.font                                    = "xos4 Terminus 10"
 end
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
