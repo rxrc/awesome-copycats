@@ -180,23 +180,23 @@ function () awful.spawn(theme.musicplr) end)))
 prev_icon:buttons(awful.util.table.join(awful.button({}, 1,
 function ()
     awful.spawn.with_shell("mpc prev")
-    mpd.update()
+    theme.mpd.update()
 end)))
 next_icon:buttons(awful.util.table.join(awful.button({}, 1,
 function ()
     awful.spawn.with_shell("mpc next")
-    mpd.update()
+    theme.mpd.update()
 end)))
 stop_icon:buttons(awful.util.table.join(awful.button({}, 1,
 function ()
     play_pause_icon:set_image(theme.play)
     awful.spawn.with_shell("mpc stop")
-    mpd.update()
+    theme.mpd.update()
 end)))
 play_pause_icon:buttons(awful.util.table.join(awful.button({}, 1,
 function ()
     awful.spawn.with_shell("mpc toggle")
-    mpd.update()
+    theme.mpd.update()
 end)))
 
 -- Battery
@@ -290,10 +290,11 @@ function theme.at_screen_connect(s)
     s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)

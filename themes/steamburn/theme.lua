@@ -207,10 +207,11 @@ function theme.at_screen_connect(s)
     s.quake = lain.util.quake({ app = awful.util.terminal })
 
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
@@ -233,9 +234,6 @@ function theme.at_screen_connect(s)
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = 18, bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 18 })

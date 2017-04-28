@@ -1,4 +1,4 @@
 *.log
 bower_components/
 rc.lua
-rc.lua.previous
+theme-personal.lua

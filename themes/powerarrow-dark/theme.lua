@@ -1,7 +1,7 @@
 
 --[[
 
-     Powerarrow Darker Awesome WM theme 2.0
+     Powerarrow Dark Awesome WM theme
      github.com/copycat-killer
 
 --]]
@@ -16,7 +16,7 @@ local os    = { getenv = os.getenv }
 local hostname     = io.lines("/proc/sys/kernel/hostname")()
 
 local theme                                     = {}
-theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker"
+theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
 theme.font                                      = "xos4 Terminus 9"
 if hostname == "Gungnir" then
@@ -45,7 +45,6 @@ theme.menu_submenu_icon                         = theme.dir .. "/icons/submenu.p
 theme.taglist_squares_sel                       = theme.dir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel                     = theme.dir .. "/icons/square_unsel.png"
 theme.layout_tile                               = theme.dir .. "/icons/tile.png"
-theme.layout_tilegaps                           = theme.dir .. "/icons/tilegaps.png"
 theme.layout_tileleft                           = theme.dir .. "/icons/tileleft.png"
 theme.layout_tilebottom                         = theme.dir .. "/icons/tilebottom.png"
 theme.layout_tiletop                            = theme.dir .. "/icons/tiletop.png"
@@ -130,7 +129,7 @@ theme.cal = lain.widget.calendar({
 -- Mail IMAP check
 local mailicon = wibox.widget.imagebox(theme.widget_mail)
 --[[ commented because it needs to be set before use
-mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(mail) end)))
+mailicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
 local mail = lain.widget.imap({
     timeout  = 180,
     server   = "server",
@@ -150,7 +149,7 @@ local mail = lain.widget.imap({
 
 -- MPD
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
+mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.spawn_with_shell(musicplr) end)))
 theme.mpd = lain.widget.mpd({
     settings = function()
         if mpd_now.state == "play" then
@@ -254,10 +253,11 @@ apwtimer:start()
 
 function theme.at_screen_connect(s)
     -- If wallpaper is a function, call it with the screen
+    local wallpaper = theme.wallpaper
     if type(wallpaper) == "function" then
-        theme.wallpaper = theme.wallpaper(s)
+        wallpaper = wallpaper(s)
     end
-    gears.wallpaper.maximized(theme.wallpaper, s, true)
+    gears.wallpaper.maximized(wallpaper, s, true)
 
     -- Tags
     awful.tag(awful.util.tagnames, s, awful.layout.layouts)
