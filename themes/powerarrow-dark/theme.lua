@@ -108,13 +108,12 @@ end
 
 -- Textclock
 local clockicon = wibox.widget.imagebox(theme.widget_clock)
-local clock = lain.widget.watch({
-    timeout  = 60,
-    cmd      = "date +'%a %d %b %I:%M %p'",
-    settings = function()
-        widget:set_markup(" " .. markup.font(theme.font, output))
+local clock = awful.widget.watch(
+    "date +'%a %d %b %I:%M %p'", 60,
+    function(widget, stdout)
+        widget:set_markup(" " .. markup.font(theme.font, stdout))
     end
-})
+)
 
 -- Calendar
 theme.cal = lain.widget.calendar({
@@ -324,7 +323,7 @@ function theme.at_screen_connect(s)
             wibox.container.background(neticon, theme.bg_focus),
             wibox.container.background(net.widget, theme.bg_focus),
             arrl_dl,
-            clock.widget,
+            clock,
             spr,
             arrl_ld,
             wibox.container.background(s.mylayoutbox, theme.bg_focus),
