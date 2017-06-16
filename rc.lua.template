@@ -190,11 +190,11 @@ screen.connect_signal("property::geometry", function(s)
 
       if hostname == "Frigg" then
         for s = 1, screen.count() do
-            gears.wallpaper.maximized(wallpaper .. "-" .. s, s, false)
+            gears.wallpaper.centered(wallpaper .. "-" .. s, s, false)
         end
       else
         for s = 1, screen.count() do
-            gears.wallpaper.maximized(wallpaper, s, false)
+            gears.wallpaper.centered(wallpaper, s, false)
         end
       end
     end
