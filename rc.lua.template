@@ -591,6 +591,9 @@ awful.rules.rules = {
         end
     },
 
+     { rule = { instance = "Navigator" },
+          properties = { floating = false, maximized = false } },
+
      { rule = { instance = "chromium" },
           properties = { floating = false, maximized = false } },
 
