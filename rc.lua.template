@@ -58,7 +58,7 @@ local altkey       = "Mod1"
 local terminal     = "termite" or "terminator" or "xterm"
 local tmux         = "termite -e tmux attach -t "
 local editor       = os.getenv("EDITOR") or "nvim" or "vim" or "nano" or "vi"
-local gui_editor   = "nvim-qt" or "gvim"
+local guieditor   = "nvim-qt" or "gvim"
 local gui_files    = "sunflower"
 local player       = "vlc"
 local viewer       = "zathura"
@@ -430,7 +430,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "]", function () awful.util.spawn(browser2) end),
     awful.key({ modkey, "Control" }, "[", function () awful.util.spawn(browser3) end),
     awful.key({ modkey, "Control" }, "]", function () awful.util.spawn(browser4) end),
-    awful.key({ modkey }, ";", function () awful.util.spawn(gui_editor) end),
+    awful.key({ modkey }, ";", function () awful.util.spawn(guieditor) end),
     awful.key({ modkey }, "'", function () awful.util.spawn(gui_files) end),
     awful.key({ modkey }, ",", function () awful.util.spawn(viewer) end),
     awful.key({ modkey }, ".", function () awful.util.spawn(player) end),
