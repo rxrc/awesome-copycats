@@ -5,15 +5,15 @@ Awesome WM Copycats
 Themes for Awesome WM 4.x
 -------------------------
 
-:Author: Luke Bonham <dada [at] archlinux [dot] info>
+:Author: Luca CPZ
 :Version: git
 :License: BY-NC-SA_
-:Source: https://github.com/copycat-killer/awesome-copycats
+:Source: https://github.com/lcpz/awesome-copycats
 
 Description
 ===========
 
-A set of themes for the Awesome_ window manager, version >= 4.0.
+A set of themes for the Awesome_ window manager, version 4.x.
 
 See branches_ for previous versions.
 
@@ -89,8 +89,8 @@ Installation
 
 .. code-block:: shell
 
-    $ git clone --recursive https://github.com/copycat-killer/awesome-copycats.git
-    $ mv -bv awesome-copycats/* ~/.config/awesome; rm -r awesome-copycats
+    $ git clone --recursive https://github.com/lcpz/awesome-copycats.git
+    $ mv -bv awesome-copycats/* ~/.config/awesome; rm -rf awesome-copycats
 
 Usage
 =====
@@ -107,7 +107,7 @@ in ``rc.lua``, and
 * configure widgets
 * define wiboxes and screen settings
 
-in ``theme.lua``, so that you just need to change ``chosen_theme`` variable in ``rc.lua`` to preserve your preferences *and* switch the theme, instead of having N different ``rc.lua`` full of redundancy.
+in ``theme.lua``, so that you just need to change ``chosen_theme`` variable in ``rc.lua`` to preserve your preferences *and* switch the theme, instead of having file redundancy.
 
 Just do the following:
 
@@ -118,7 +118,7 @@ Just do the following:
 
 Then, set the variable ``chosen_theme`` in ``rc.lua`` to your preferred theme, do your settings, and restart Awesome (``Mod4 + ctrl + r``).
 
-To customize a theme, head over ``themes/$chosen_theme/theme.lua``.
+To customize a theme, head over to ``themes/$chosen_theme/theme.lua``.
 
 Otherwise, if you want to be synced with upstream, modify ``theme_path`` variable in ``rc.lua`` like this:
 
@@ -142,27 +142,27 @@ Every theme has a colorscheme_.
 
 Blackburn and Dremora use Icons_, Vertex uses FontAwesome_: be sure to have bitmaps enabled if running under Debian or Ubuntu_.
 
-Additional software used: ::
+Additional default software used: ::
 
-    unclutter firefox scrot mpd mpc dmenu xsel
+    unclutter firefox scrot mpd mpc dmenu xsel xlock
 
 .. _BY-NC-SA: http://creativecommons.org/licenses/by-nc-sa/4.0
-.. _b0ab0d7: https://github.com/copycat-killer/awesome-copycats/tree/b0ab0d7837987be81b9195a36631df773113d491
+.. _b0ab0d7: https://github.com/lcpz/awesome-copycats/tree/b0ab0d7837987be81b9195a36631df773113d491
 .. _Awesome: http://github.com/awesomeWM/awesome
 .. _lucamanni: https://github.com/lucamanni/awesome
 .. _romockee: https://github.com/romockee/powerarrow
 .. _ok100: http://ok100.deviantart.com/art/DWM-January-2013-348656846
 .. _amouly: https://bbs.archlinux.org/viewtopic.php?pid=1307158#p1307158
-.. _swordfischer: https://github.com/copycat-killer/awesome-copycats/issues/53
+.. _swordfischer: https://github.com/lcpz/awesome-copycats/issues/53
 .. _foozer: http://dotshare.it/dots/499
-.. _lain: https://github.com/copycat-killer/lain
-.. _freedesktop: https://github.com/copycat-killer/freedesktop
+.. _lain: https://github.com/lcpz/lain
+.. _freedesktop: https://github.com/lcpz/freedesktop
 .. _Terminus: http://terminus-font.sourceforge.net
 .. _Tamzen: https://github.com/sunaku/tamzen-font
 .. _Roboto: https://fonts.google.com/specimen/Roboto
 .. _Tamsyn: http://www.fial.com/~scott/tamsyn-font
-.. _colorscheme: https://github.com/copycat-killer/dots/tree/master/.colors
-.. _Icons: https://github.com/copycat-killer/dots/tree/master/.fonts
+.. _colorscheme: https://github.com/lcpz/dots/tree/master/.colors
+.. _Icons: https://github.com/lcpz/dots/tree/master/.fonts
 .. _Ubuntu: https://wiki.ubuntu.com/Fonts#Enabling_Bitmapped_Fonts
 .. _FontAwesome: https://github.com/FortAwesome/Font-Awesome
-.. _branches: https://github.com/copycat-killer/awesome-copycats/branches
+.. _branches: https://github.com/lcpz/awesome-copycats/branches

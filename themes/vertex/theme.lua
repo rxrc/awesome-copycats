@@ -1,9 +1,8 @@
-
 --[[
-                           
- Vertex Awesome WM theme   
- github.com/copycat-killer 
-                           
+
+ Vertex Awesome WM theme
+ github.com/lcpz
+
 --]]
 
 local gears = require("gears")
@@ -206,7 +205,7 @@ theme.volume = lain.widget.alsabar({
         volicon:set_image(theme[index])
     end
 })
-volicon:buttons(awful.util.table.join (
+volicon:buttons(gears.table.join (
           awful.button({}, 1, function()
             awful.spawn.with_shell(string.format("%s -e alsamixer", awful.util.terminal))
           end),
@@ -405,7 +404,7 @@ function theme.at_screen_connect(s)
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
+    s.mylayoutbox:buttons(gears.table.join(
                            awful.button({ }, 1, function () awful.layout.inc( 1) end),
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
@@ -427,23 +426,24 @@ function theme.at_screen_connect(s)
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 25, bg = gears.color.create_png_pattern(theme.panelbg) })
 
+    local wiboxlayout = wibox.layout.align.horizontal()
+    wiboxlayout.expand = "none"
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
+        layout = wiboxlayout,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             s.mypromptbox,
             tspace1,
-            wibox.container.constraint(s.mytasklist, "exact", s.workarea.width/2.6),
+            s.mytasklist,
         },
         { -- Middle widgets
-            layout = wibox.layout.flex.horizontal,
-            space,
+            layout = wibox.layout.fixed.horizontal,
             mytextclock,
         },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.container.constraint(wibox.widget { nil, nil, theme.mpd.widget, layout = wibox.layout.align.horizontal }, "exact", s.workarea.width/3),
+            wibox.widget { nil, nil, theme.mpd.widget, layout = wibox.layout.align.horizontal },
             rspace0,
             theme.weather.icon,
             theme.weather.widget,
