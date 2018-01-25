@@ -64,7 +64,7 @@ local player       = "vlc"
 local viewer       = "zathura"
 local browser      = "firefox"
 local browser2     = "google-chrome-stable"
-local browser3     = "firefox-developer"
+local browser3     = "firefox-developer-edition"
 local browser4     = "chromium"
 local screenshot   = "maim ~/drive/screenshots/$(hostname | tr '[:upper:]' '[:lower:]')/$(date +%F-%T%z).png"
 
