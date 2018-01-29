@@ -71,7 +71,7 @@ local altkey       = "Mod1"
 local terminal     = "termite" or "terminator" or "xterm"
 local tmux         = "termite -e tmux attach -t "
 local editor       = os.getenv("EDITOR") or "nvim" or "vim" or "nano" or "vi"
-local guieditor   = "nvim-qt" or "gvim"
+local guieditor   = "nvim-gtk" or "nvim-qt" or "gvim"
 local gui_files    = "sunflower"
 local player       = "vlc"
 local viewer       = "zathura"
@@ -80,7 +80,6 @@ local browser2     = "google-chrome-stable"
 local browser3     = "firefox-developer-edition"
 local browser4     = "chromium"
 local screenshot   = "maim ~/drive/screenshots/$(hostname | tr '[:upper:]' '[:lower:]')/$(date +%F-%T%z).png"
-local guieditor    = "atom"
 
 awful.util.terminal = terminal
 awful.util.tagnames = { "alpha", "beta", "gamma", "delta", "sigma", "tau" }
