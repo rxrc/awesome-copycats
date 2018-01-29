@@ -45,7 +45,7 @@ end
 -- }}}
 
 -- {{{ Start systemd target
-awful.spawn_with_shell(
+awful.util.spawn_with_shell(
   "sleep 1 && systemctl --user restart window-manager.target")
 -- }}}
 
