@@ -270,7 +270,7 @@ function theme.at_screen_connect(s)
         wallpaper = wallpaper(s)
     end
 
-    if hostname == "Frigg" then
+    if s.index > 1 then
       gears.wallpaper.centered(wallpaper .. "-" .. s.index, s.index, false)
     else
       gears.wallpaper.centered(wallpaper, s.index, false)

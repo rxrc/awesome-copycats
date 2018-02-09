@@ -201,13 +201,11 @@ screen.connect_signal("property::geometry", function(s)
     if beautiful.wallpaper then
       local wallpaper = beautiful.wallpaper
 
-      if hostname == "Frigg" then
-        for s = 1, screen.count() do
-            gears.wallpaper.centered(wallpaper .. "-" .. s, s, false)
-        end
-      else
-        for s = 1, screen.count() do
-            gears.wallpaper.centered(wallpaper, s, false)
+      for s = 1, screen.count() do
+        if s == 1 then
+          gears.wallpaper.centered(wallpaper, s, false)
+        else
+          gears.wallpaper.centered(wallpaper .. "-" .. s, s, false)
         end
       end
     end
