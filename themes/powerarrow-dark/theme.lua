@@ -11,7 +11,7 @@ local apw   = require("apw/widget")
 local awful = require("awful")
 local wibox = require("wibox")
 
-local os = { getenv = os.getenv }
+local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local hostname     = io.lines("/proc/sys/kernel/hostname")()
@@ -224,9 +224,7 @@ local bat = lain.widget.bat({
     settings = function()
         if bat_now.status and bat_now.status ~= "N/A" then
             if bat_now.ac_status == 1 then
-                widget:set_markup(markup.font(theme.font, " AC "))
                 baticon:set_image(theme.widget_ac)
-                return
             elseif not bat_now.perc and tonumber(bat_now.perc) <= 5 then
                 baticon:set_image(theme.widget_battery_empty)
             elseif not bat_now.perc and tonumber(bat_now.perc) <= 15 then
