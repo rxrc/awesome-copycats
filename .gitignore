@@ -1,5 +1,6 @@
 *.log
 bower_components/
 rc.lua
+rc.lua.save
 theme-personal.lua
 .luacheckrc
