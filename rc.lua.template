@@ -19,7 +19,6 @@ local lain          = require("lain")
 local apw           = require("apw/widget")
 local drop          = require("scratchdrop")
 --local menubar       = require("menubar")
-local freedesktop   = require("freedesktop")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
                       require("awful.hotkeys_popup.keys")
 local my_table      = awful.util.table or gears.table -- 4.{0,1} compatibility
@@ -211,17 +210,6 @@ local myawesomemenu = {
     { "restart", awesome.restart },
     { "quit", function() awesome.quit() end }
 }
-awful.util.mymainmenu = freedesktop.menu.build({
-    icon_size = beautiful.menu_height or dpi(16),
-    before = {
-        { "Awesome", myawesomemenu, beautiful.awesome_icon },
-        -- other triads can be put here
-    },
-    after = {
-        { "Open terminal", terminal },
-        -- other triads can be put here
-    }
-})
 -- hide menu when mouse leaves it
 --awful.util.mymainmenu.wibox:connect_signal("mouse::leave", function() awful.util.mymainmenu:hide() end)
 
@@ -416,7 +404,7 @@ globalkeys = my_table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Dropdown apps
-    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://slack.com/signin'",
+    awful.key({ modkey,                  }, "d",      function () drop("slack",
       "top", "center", 1, 1, true) end),
     awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://inbox.google.com'",
       "top", "center", 1, 1, true) end),
