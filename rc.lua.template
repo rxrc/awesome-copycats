@@ -404,7 +404,7 @@ globalkeys = my_table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Dropdown apps
-    awful.key({ modkey,                  }, "d",      function () drop("slack",
+    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://slack.com/signin'",
       "top", "center", 1, 1, true) end),
     awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://inbox.google.com'",
       "top", "center", 1, 1, true) end),
