@@ -20,12 +20,12 @@ local hostname     = io.lines("/proc/sys/kernel/hostname")()
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = theme.dir .. "/wall.png"
-theme.font                                      = "Inconsolata-g 9"
+theme.font                                      = "Terminus 9"
 if hostname == "Gungnir" then
-  theme.font                                    = "Inconsolata-g 11"
+  theme.font                                    = "Terminus 11"
 end
 if hostname == "Frigg" then
-  theme.font                                    = "Inconsolata-g 10"
+  theme.font                                    = "Terminus 10"
 end
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
@@ -121,7 +121,7 @@ local clock = awful.widget.watch(
 theme.cal = lain.widget.cal({
     attach_to = { clock },
     notification_preset = {
-        font = "Inconsolata-g 10",
+        font = "Terminus 10",
         fg   = theme.fg_normal,
         bg   = theme.bg_normal
     }
@@ -212,7 +212,7 @@ local temp = lain.widget.temp({
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
 --[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
-    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Inconsolata-g 10" },
+    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
     end
