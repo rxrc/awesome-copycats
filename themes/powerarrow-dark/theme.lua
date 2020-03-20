@@ -243,15 +243,40 @@ local bat = lain.widget.bat({
 
 -- ALSA volume
 local volicon = wibox.widget.imagebox(theme.widget_vol)
+theme.volume = lain.widget.alsa({
+    settings = function()
+        if volume_now.status == "off" then
+            volicon:set_image(theme.widget_vol_mute)
+        elseif tonumber(volume_now.level) == 0 then
+            volicon:set_image(theme.widget_vol_no)
+        elseif tonumber(volume_now.level) <= 50 then
+            volicon:set_image(theme.widget_vol_low)
+        else
+            volicon:set_image(theme.widget_vol)
+        end
+
+        widget:set_markup(markup.font(theme.font, " " .. volume_now.level .. "% "))
+    end
+})
+theme.volume.widget:buttons(awful.util.table.join(
+                               awful.button({}, 4, function ()
+                                     awful.util.spawn("amixer set Master 1%+")
+                                     theme.volume.update()
+                               end),
+                               awful.button({}, 5, function ()
+                                     awful.util.spawn("amixer set Master 1%-")
+                                     theme.volume.update()
+                               end)
+))
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. net_now.received)
+                          markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
                           .. " " ..
-                          markup("#46A8C3", " " .. net_now.sent .. " ")))
+                          markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
     end
 })
 
