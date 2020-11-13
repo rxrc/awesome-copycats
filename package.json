@@ -1,0 +1,21 @@
+{
+  "name": "@rxrc/awesome-copycats",
+  "version": "0.0.0",
+  "description": "Systemd units.",
+  "homepage": "https://github.com/rxrc/awesome-copycats",
+  "bugs": "https://github.com/rxrc/awesome-copycats/issues",
+  "repository": "rxrc/awesome-copycats",
+  "license": "Unlicense",
+  "author": {
+    "name": "Evan Sosenko",
+    "email": "razorx@evansosenko.com"
+  },
+  "files": [
+    "*.conf.d",
+    "system"
+  ],
+  "scripts": {
+    "test": "true",
+    "postversion": "git push && git push --tags"
+  }
+}
