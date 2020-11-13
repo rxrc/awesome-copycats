@@ -11,8 +11,11 @@
     "email": "razorx@evansosenko.com"
   },
   "files": [
-    "*.conf.d",
-    "system"
+    "freedesktop",
+    "rc.lua.template",
+    "README.rst",
+    "scratchdrop",
+    "themes"
   ],
   "scripts": {
     "test": "true",
