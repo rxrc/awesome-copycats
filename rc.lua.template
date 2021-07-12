@@ -424,9 +424,9 @@ globalkeys = my_table.join(
       "top", "center", 1, 1, true) end),
     awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://app.slack.com/client/T02EG0KQK'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://inbox.google.com'",
+    awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://mail.google.com'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "s",      function () drop(browser2 .. " --app='https://play.google.com/music/listen'",
+    awful.key({ modkey,                  }, "s",      function () drop(browser2 .. " --app='https://music.youtube.com'",
       "top", "center", 1, 1, true) end),
 
     -- Widgets popups
