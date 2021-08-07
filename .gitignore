@@ -5,6 +5,13 @@
 # For more details, visit the project page:
 # https://github.com/github/gitignore
 
+# awesome-copycats
+rc.lua
+rc.lua.save
+theme-personal.lua
+.luacheckrc
+wip/
+
 # Build directories
 package
 
