@@ -202,8 +202,23 @@ local myawesomemenu = {
    { "Quit", function() awesome.quit() end },
 }
 
--- hide menu when mouse leaves it
---mymainmenu.wibox:connect_signal("mouse::leave", function() mymainmenu:hide() end)
+-- Hide the menu when the mouse leaves it
+--[[
+awful.util.mymainmenu.wibox:connect_signal("mouse::leave", function()
+    if not awful.util.mymainmenu.active_child or
+       (awful.util.mymainmenu.wibox ~= mouse.current_wibox and
+       awful.util.mymainmenu.active_child.wibox ~= mouse.current_wibox) then
+        awful.util.mymainmenu:hide()
+    else
+        awful.util.mymainmenu.active_child.wibox:connect_signal("mouse::leave",
+        function()
+            if awful.util.mymainmenu.wibox ~= mouse.current_wibox then
+                awful.util.mymainmenu:hide()
+            end
+        end)
+    end
+end)
+--]]
 
 -- Set the Menubar terminal for applications that require it
 --menubar.utils.terminal = terminal
@@ -248,7 +263,7 @@ awful.screen.connect_for_each_screen(function(s) beautiful.at_screen_connect(s) 
 -- {{{ Mouse bindings
 
 root.buttons(mytable.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    awful.button({ }, 3, function () awful.util.mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -321,7 +336,7 @@ globalkeys = mytable.join(
         {description = "focus right", group = "client"}),
 
     -- Menu
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    awful.key({ modkey,           }, "w", function () awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
