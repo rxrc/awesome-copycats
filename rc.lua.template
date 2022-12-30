@@ -426,7 +426,7 @@ globalkeys = mytable.join(
     -- Dropdown apps
     awful.key({ modkey,                  }, "e",      function () drop(browser2 .. " --app='https://discord.com/app'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://app.slack.com/client/T02EG0KQK'",
+    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://hello-seam.slack.com'",
       "top", "center", 1, 1, true) end),
     awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://mail.google.com'",
       "top", "center", 1, 1, true) end),
