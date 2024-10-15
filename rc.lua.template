@@ -424,13 +424,13 @@ globalkeys = mytable.join(
     end, {description = "restore minimized", group = "client"}),
 
     -- Dropdown apps
-    awful.key({ modkey,                  }, "e",      function () drop(browser2 .. " --app='https://discord.com/app'",
+    awful.key({ modkey,                  }, "e",      function () drop(browser .. " -kiosk 'https://discord.com/app'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "d",      function () drop(browser2 .. " --app='https://hello-seam.slack.com'",
+    awful.key({ modkey,                  }, "d",      function () drop(browser .. " -kiosk 'https://hello-seam.slack.com'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "i",      function () drop(browser2 .. " --app='https://mail.google.com'",
+    awful.key({ modkey,                  }, "i",      function () drop(browser .. " -kiosk 'https://mail.google.com'",
       "top", "center", 1, 1, true) end),
-    awful.key({ modkey,                  }, "s",      function () drop(browser2 .. " --app='https://music.youtube.com'",
+    awful.key({ modkey,                  }, "s",      function () drop(browser .. " -kiosk 'https://music.youtube.com'",
       "top", "center", 1, 1, true) end),
 
     -- Widgets popups
