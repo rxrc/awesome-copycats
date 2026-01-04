@@ -109,7 +109,7 @@ local chosen_theme = themes[7]
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "kitty" or "termite" or "terminator" or "xterm"
-local bash_exec    = os.getenv("HOME") .. "/.local/bin/bash-exec" .. " "
+local env_exec    = os.getenv("HOME") .. "/.local/bin/env-exec" .. " "
 local vi_focus     = false -- vi-like client focus https://github.com/lcpz/awesome-copycats/issues/275
 local cycle_prev   = true  -- cycle with only the previously focused client or all https://github.com/lcpz/awesome-copycats/issues/274
 local tmux         = "termite -e tmux attach -t "
@@ -378,7 +378,7 @@ globalkeys = mytable.join(
               {description = "delete tag", group = "tag"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn.with_shell(bash_exec .. terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn.with_shell(env_exec .. terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -478,7 +478,7 @@ globalkeys = mytable.join(
     awful.key({ modkey }, "]", function () awful.spawn(browser2) end),
     awful.key({ modkey, "Control" }, "[", function () awful.spawn(browser3) end),
     awful.key({ modkey, "Control" }, "]", function () awful.spawn(browser4) end),
-    awful.key({ modkey }, ";", function () awful.spawn(bash_exec .. guieditor) end),
+    awful.key({ modkey }, ";", function () awful.spawn(env_exec .. guieditor) end),
     awful.key({ modkey }, "'", function () awful.spawn(gui_files) end),
     awful.key({ modkey }, ",", function () awful.spawn(viewer) end),
     awful.key({ modkey }, ".", function () awful.spawn(player) end),
