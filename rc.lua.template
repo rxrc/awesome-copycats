@@ -475,7 +475,7 @@ globalkeys = mytable.join(
     awful.key({ modkey }, "]", function () awful.spawn(browser2) end),
     awful.key({ modkey, "Control" }, "[", function () awful.spawn(browser3) end),
     awful.key({ modkey, "Control" }, "]", function () awful.spawn(browser4) end),
-    awful.key({ modkey }, ";", function () awful.spawn(env_exec .. guieditor) end),
+    awful.key({ modkey }, ";", function () awful.spawn.with_shell(env_exec .. "env " .. guieditor) end),
     awful.key({ modkey }, "'", function () awful.spawn(gui_files) end),
     awful.key({ modkey }, ",", function () awful.spawn(viewer) end),
     awful.key({ modkey }, ".", function () awful.spawn(player) end),
