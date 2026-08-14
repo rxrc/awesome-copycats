@@ -809,3 +809,45 @@ client.connect_signal("unmanage", backham)
 tag.connect_signal("property::selected", backham)
 
 -- }}}
+
+-- Keep Zoom's transient controls/toolbars out of the tiled layout.
+client.connect_signal("manage", function(c)
+    local class = (c.class or ""):lower()
+
+    if class:find("zoom", 1, true)
+        and (
+            c.transient_for
+            or c.type == "dialog"
+            or c.type == "utility"
+            or c.type == "toolbar"
+        )
+    then
+        c.floating = true
+        c.ontop = true
+    end
+end)
+
+local function shrink_zoom_annotate_toolbar(c)
+    if c.name ~= "annotate_toolbar" then
+        return
+    end
+
+    c.floating = true
+    c.focusable = false
+    c.skip_taskbar = true
+    c.border_width = 0
+    c.size_hints_honor = false
+
+    local area = c.screen.workarea
+
+    c:geometry({
+        x = area.x + area.width - 1,
+        y = area.y + area.height - 1,
+        width = 1,
+        height = 1,
+    })
+end
+
+client.connect_signal("manage", shrink_zoom_annotate_toolbar)
+client.connect_signal("property::name", shrink_zoom_annotate_toolbar)
+client.connect_signal("property::geometry", shrink_zoom_annotate_toolbar)
